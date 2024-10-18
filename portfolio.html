@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Gallery Portfolio</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background-color: #007BFF; /* Blue color */
+            color: white; /* White text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            width: 100px;
+            margin: 5px;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .back-btn::before {
+            content: "\2190"; /* Unicode for left arrow symbol (←) */
+            margin-right: 10px; /* Spacing between arrow and text */
+            font-size: 18px;
+        }
+
+        .portfolio {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .portfolio h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .filter-btn {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            flex: 0 0 auto; /* Prevent shrinking */
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #fff;
+            color: #007BFF;
+            border: 2px solid #007BFF;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .portfolio-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .portfolio-item {
+            display: none;
+            width: 300px;
+            margin: 15px;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+        }
+
+        .portfolio-info {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .portfolio-info h3 {
+            font-size: 18px;
+            color: #333;
+            margin: 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease; /* Smoother transition */
+            border-radius: 10px 10px 0 0;
+        }
+
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            font-size: 50px; /* Increased size of play icon */
+            color: white;
+        }
+
+        .play-icon:hover {
+            color: #007BFF; /* Blue color on hover */
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-item {
+                width: 100%; /* Full width for smaller screens */
+            }
+
+            .portfolio h2 {
+                font-size: 28px; /* Smaller font size for headings on mobile */
+            }
+        }
+
+        html {
+            scroll-behavior: smooth; /* Enable smooth scrolling */
+        }
+    </style>
+</head>
+<body>
+    <button onclick="history.back()" class="back-btn">
+       Back
+    </button>
+
+    <section id="portfolio" class="portfolio">
+        <h2>Our Video Gallery</h2>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="short">Short-Form</button>
+            <button class="filter-btn" data-category="long">Long-Form</button>
+            <button class="filter-btn" data-category="gaming">Gaming</button>
+            <button class="filter-btn" data-category="football">Football Edits</button>
+            <button class="filter-btn" data-category="ecommerce">eCommerce Ads</button>
+            <button class="filter-btn" data-category="documentary">Documentary Style</button>
+            <button class="filter-btn" data-category="colorgrading">Color Grading</button>
+            <button class="filter-btn" data-category="anime">Anime Videos</button>
+            <button class="filter-btn" data-category="ads">Ads</button>
+        </div>
+
+        <div class="portfolio-container">
+            <!-- Short-Form Video -->
+            <div class="portfolio-item" data-category="short">
+                <img src="https://i.ytimg.com/vi/nbL4e2tzzlw/oar2.jpg?sqp=-oaymwEYCJUDENAFSFqQAgHyq4qpAwcIARUAAIhC&rs=AOn4CLBlesYH2tXcLzwzCOU2F9XSzydMhA" alt="Short video">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/124ojD_Mb47nT47jREAGuT4B97F-6DUGK/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Iman Gadzhi Tryout</h3>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="short">
+                <img src="https://ali-cdn-diy-public.classplus.co/prod/Logo_1718989913215.png" alt="Short video ">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1JFzqJtAM67m52dcsSuQJQI4J3GCGNONc/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>VautofCodes Clip</h3>
+                </div>
+            </div>
+            <!-- Long-Form Video -->
+            <div class="portfolio-item" data-category="long">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgDyen1PE0wd29OZyT__yLVHSKsM85GH4fbg&s" alt="Short video">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1fi_X2WKhl6-qbfXlQT7YtbOaUYAMcV7v/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Talking head</h3>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="long">
+                <img src="https://i.ytimg.com/vi/bKL-jgbrezQ/sddefault.jpg" alt="Short video ">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1gUIJWzf8vRuWZqXuNnxqjK_x7oaFYNdP/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>VautofCodes Clip</h3>
+                </div>
+            </div>
+
+            <!-- Gaming Video -->
+            <div class="portfolio-item" data-category="gaming">
+                <img src="https://multimedia.easeus.com/images/multimedia/video-editor/resource/shotcut.png" alt="Gaming video">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/13YxW_9aOEQVwZckVR8LZRPK6xAWsxUYe/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Gaming Edited YT Video</h3>
+                </div>
+            </div>
+
+            <!-- Football Edits -->
+            <div class="portfolio-item" data-category="football">
+                <img src="https://m.economictimes.com/thumb/msid-95694158,width-1200,height-900,resizemode-4,imgsize-88404/fifa-world-cup-lionel-messi-vs-cristiano-ronaldo-comparing-legends-world-cup-records.jpg" alt="Football video 1">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1LeB1BTVDXUlNPAztEoX7vUFHLITPE8Wy/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Ronaldo vs messi</h3>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="football">
+                <img src="https://venturebeat.com/wp-content/uploads/2024/06/UFL-Game-Ronaldo.jpg" alt="Football video 2">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1LlPn6ACK4uc7RIHHxC617MbpWg3WPwdK/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Ronaldo</h3>
+                </div>
+            </div>
+
+            <!-- eCommerce Ads -->
+            <div class="portfolio-item" data-category="ecommerce">
+                <img src="https://mock-it.co/wp-content/uploads/2021/02/PS-AA-F498-PI-500x500.jpg" alt="eCommerce ad 1">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1WvF0RNkmXyJDmDYicLShM1EJ_hrAvQ0m/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>1st Mockup Edit</h3>
+                </div>
+            </div>
+            <div class="portfolio-item" data-category="ecommerce">
+                <img src="https://cdn.prod.website-files.com/625816a3416990dd61391b9b/66deac2ce3092ef769a9f2ba_651aba287908fca636281d45_001-hoodie.jpeg" alt="eCommerce ad 2">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/19pGELOcPCiRE9MvFSgVGW0uU2kqoX1C-/view?usp=sharing">
+                        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>2nd Mockup Edit</h3>
+                </div>
+            </div>
+
+            <!-- Documentary Style -->
+            <div class="portfolio-item" data-category="documentary">
+                <img src="https://images.squarespace-cdn.com/content/v1/6146224245cef54e6a945f5c/c9d8e3bf-778e-467e-8d7c-14e734e28f8f/Self-Improvement-Tips-To-Change-Life+edit.jpg" alt="Documentary">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1Us9oO28sjfLtelPR5ZZ_GL9KlhESFeD6/view?usp=sharing"><ion-icon name="play-circle-outline" class="play-icon"></ion-icon></a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>In-Depth Documentary</h3>
+                </div>
+            </div>
+
+            <!-- Color Grading -->
+            <div class="portfolio-item" data-category="colorgrading">
+                <img src="https://www.proalley.com/blog/content/images/2023/09/Color-Grading-vs-Color-Correction-Which-One-Do-You-Need-for-Your-Video.jpg" alt="Color Grading">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1Z44prGPhxNrI-EAnlAIjYPBaCcKsl-70/view?usp=sharing"><ion-icon name="play-circle-outline" class="play-icon"></ion-icon></a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Color Grading Example</h3>
+                </div>
+            </div>
+
+            <!-- Anime Videos -->
+            <div class="portfolio-item" data-category="anime">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHm6EuwDNtVI7eNxqRrTesXFGiu9WKRJlUQA&s" alt="Anime video">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/12DKvqdCPlauiWfQxAFlfANfOa19iT4Cn/view?usp=sharing"><ion-icon name="play-circle-outline" class="play-icon"></ion-icon></a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Action-Packed Anime Clip</h3>
+                </div>
+            </div>
+
+            <!-- Ads -->
+            <div class="portfolio-item" data-category="ads">
+                <img src="https://i.ytimg.com/vi/kpHBxLqkikw/maxresdefault.jpg" alt="Ad video">
+                <div class="overlay">
+                    <a href="https://drive.google.com/file/d/1J56RJ4AZaT7PpqsSmj6JZH1vhSkeH60r/view?usp=sharing"><ion-icon name="play-circle-outline" class="play-icon"></ion-icon></a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Creative Ad Campaign</h3>
+                </div>
+            </div>
+
+            <!-- Add more portfolio items as necessary... -->
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            function filterPortfolio(category) {
+                portfolioItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterPortfolio(this.dataset.category);
+                });
+            });
+
+            // Show all items initially
+            filterPortfolio('all');
+        });
+    </script>
+</body>
+</html>
